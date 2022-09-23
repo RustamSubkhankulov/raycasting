@@ -1,4 +1,5 @@
 #include "../include/logs/logs.h"
+#include "../include/raycast_test/raycast_test.hpp"
 
 //=========================================================
 
@@ -10,7 +11,7 @@ int main()
         open_log_file(Logfile_name);
     #endif 
 
-    // do smth
+    err = raycast_sphere_test();
 
     #ifdef LOGS
         close_log_file();

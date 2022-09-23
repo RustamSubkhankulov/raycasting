@@ -10,7 +10,9 @@ OBJ = obj/main.o          \
 	  obj/vector.o        \
 	  obj/logs.o          \
 	  obj/coordsys.o      \
-	  obj/graphics.o	  
+	  obj/graphics.o	  \
+	  obj/raycast_test.o  \
+	  obj/raycast.obj
 
 #----------------------------------------------------------
 
@@ -70,7 +72,7 @@ endif
 
 #==========================================================
 
-all: dir exec_vector
+all: dir raycast_
 
 #----------------------------------------------------------
 
@@ -80,14 +82,14 @@ dir:
 	mkdir -p obj
 
 clean:
-	rm obj/*.o exec_vector
+	rm obj/*.o raycast
 
 #----------------------------------------------------------
 
-exec_vector: $(OBJ)
-	$(CC) $(OBJ) $(SFML_FLAGS) -o raycast
+raycast_: $(OBJ)
+	$(CC) $(OBJ) $(SFML_FLAGS) -o raycast_test
 
-obj/main.o:     src/main.cpp include/raycast/raycast.hpp
+obj/main.o:     src/main.cpp include/raycast_test/raycast_test.hpp
 	$(CC) 		src/main.cpp              			-c -o obj/main.o     	  $(FLAGS) $(CXXFLAGS) 
 
 obj/vector.o:	src/vector/vector.cpp include/vector/vector.hpp
@@ -103,3 +105,10 @@ obj/logs.o:     src/logs/logs.cpp include/logs/errors.h include/logs/logs.h code
 obj/coordsys.o: src/coordsys/coordsys.cpp include/coordsys/coordsys.hpp
 	$(CC) 		src/coordsys/coordsys.cpp 			-c -o obj/coordsys.o 	  $(FLAGS) $(CXXFLAGS) 
 
+obj/raycast_test.o:  src/raycast_test/raycast_test.cpp include/raycast_test/raycast_test.hpp \
+													   include/graphics/graphics.hpp \
+													   include/raycast_test/raycast_test_conf.hpp
+	$(CC)		src/raycast_test/raycast_test.cpp 	-c -o obj/raycast_test.o 	  $(FLAGS) $(CXXFLAGS)
+
+obj/raycast.o:	src/raycast/raycast.cpp include/raycast/raycast.hpp 
+	$(CC)		src/raycast/raycast.cpp				-c -o obj/raycast.o       $(FLAGS) $(CXXFLAGS)	

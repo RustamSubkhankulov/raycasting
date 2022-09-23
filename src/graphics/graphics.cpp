@@ -153,3 +153,38 @@ void Grph::Window::draw_div_number(Coordsys& coordsys, sf::Text& div_num, const 
 
     window_.draw(div_num);
 }
+
+//---------------------------------------------------------
+
+bool Grph::PixelsWindow::set_pixel(const Vector& pxl_pos, const Vector& pxl_val, unsigned char alpha)
+{
+    unsigned x_pos = (unsigned) pxl_pos.x();
+    unsigned y_pos = (unsigned) pxl_pos.y();
+
+    return this->set_pixel(x_pos, y_pos, pxl_val, alpha);
+}
+
+//---------------------------------------------------------
+
+bool Grph::PixelsWindow::set_pixel(const Vector& pxl_pos, const Vector& pxl_val, unsigned char alpha)
+{
+    unsigned x_pos = (unsigned) pxl_pos.x();
+    unsigned y_pos = (unsigned) pxl_pos.y();
+
+    if (x_pos < x_size_ && y_pos < y_size_)
+    {
+        unsigned cur_pos = y_pos * x_size_ + x_pos;
+
+        pixels_[cur_pos    ] = (unsigned char) pxl_val.x(); // r
+        pixels_[cur_pos + 1] = (unsigned char) pxl_val.y(); // g
+        pixels_[cur_pos + 2] = (unsigned char) pxl_val.z(); // b
+        pixels_[cur_pos + 3] = alpha;                       // a
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+

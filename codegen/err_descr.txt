@@ -819,3 +819,6 @@ Input destination in input binary file is not found in bsearch)
 
 DEF_ERR(1228, UNEXP_OPT,
 Unexpected option in visual tests)
+
+DEF_ERR(1229, PIXEL_ISNT_SET,
+Pixel is not set due to an error)

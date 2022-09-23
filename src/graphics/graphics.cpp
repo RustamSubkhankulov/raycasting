@@ -170,12 +170,17 @@ bool Grph::PixelsWindow::set_pixel(unsigned x_pos, unsigned y_pos, const Vector&
 {
     if (x_pos < x_size_ && y_pos < y_size_)
     {
-        unsigned cur_pos = y_pos * x_size_ + x_pos;
+        unsigned cur_pos = (y_pos * x_size_ + x_pos) * 4;
 
         pixels_[cur_pos    ] = (unsigned char) pxl_val.x(); // r
         pixels_[cur_pos + 1] = (unsigned char) pxl_val.y(); // g
         pixels_[cur_pos + 2] = (unsigned char) pxl_val.z(); // b
         pixels_[cur_pos + 3] = alpha;                       // a
+
+        // fprintf(stderr, "RGBA: %u|%u|%u|%u \n", pixels_[cur_pos],
+        //                                         pixels_[cur_pos + 1],
+        //                                         pixels_[cur_pos + 2],
+        //                                         pixels_[cur_pos + 3]);
 
         return true;
     }

@@ -14,7 +14,7 @@ static const double Sphere_center_pos_X = 0;
 static const double Sphere_center_pos_Y = 0;
 static const double Sphere_center_pos_Z = 0;
 
-static const double Sphere_rad = 3;
+static const double Sphere_rad = 1;
 
 //---------------------------------------------------------
 
@@ -47,7 +47,7 @@ static const unsigned Wndw_y_size = 800u;
 
 #ifdef FILL_COLOR
 
-    const static Vector Fill_color_rgb{153, 255, 102};
+    const static Vector Fill_color_rgb{255, 102, 204};
     const unsigned char Fill_color_alpha = 255;
 
 #endif 

@@ -30,7 +30,7 @@ static int pixels_array_fill(Grph::PixelsWindow* window)
     for (unsigned y_pos = 0; y_pos < y_size; y_pos++)
     {
         for (unsigned x_pos = 0; x_pos < x_size; x_pos++)
-        {
+        {            
             bool is_set = window->set_pixel(x_pos, y_pos, Fill_color_rgb, Fill_color_alpha);
             if (is_set != true)
             {
@@ -79,8 +79,8 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
 
     #endif 
 
-    unsigned cur_x_pos = 0;
-    unsigned cur_y_pos = 0;
+    // unsigned cur_x_pos = 0;
+    // unsigned cur_y_pos = 0;
 
     while (window.is_open())
     {
@@ -94,47 +94,58 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             {
                 //
             }
+        }
 
-            Vector cur_point = coordsys.reverse_convert_coord(Vector{(double) cur_x_pos, 
-                                                                     (double) cur_y_pos});
-            
-            Vector cur_point_rgb{};
+        for (unsigned cur_y_pos = 0; cur_y_pos < Wndw_y_size; cur_y_pos++)
+        {
+            for (unsigned cur_x_pos = 0; cur_x_pos < Wndw_x_size; cur_x_pos++)
+            {
+                Vector cur_point_r{(double) cur_x_pos, (double) cur_y_pos};
+                Vector cur_point = coordsys.reverse_convert_coord(cur_point_r);
+                
+                // fprintf(stderr, "\n converted: %lf %lf \n", cur_point.x(), cur_point.y());
+                // fprintf(stderr, "\n real     : %lf %lf \n", cur_point_r.x(), cur_point_r.y());
 
-            if (cur_point.x() * cur_point.x() + cur_point.y() * cur_point.y() <= sphere_rad_sqr)
-            {
-                cur_point_rgb.set(255, 255, 255); //white
-            }
-            else 
-            {
-                cur_point_rgb.set(0, 0, 0); //black
-            }
+                Vector cur_point_rgb{};
 
-            bool is_set = window.set_pixel(cur_point, cur_point_rgb, Alpha_default);
-            {
-                if (is_set != 0)
+                if (cur_point.x() * cur_point.x() + cur_point.y() * cur_point.y() <= sphere_rad_sqr)
                 {
-                    error_report(PIXEL_ISNT_SET);
-                    
-                    continue;  // <- temporary
-                    
-                    //return PIXEL_ISNT_SET;
+                    cur_point_rgb.set(255, 0, 0); //red
+                }
+                else 
+                {
+                    cur_point_rgb.set(255, 255, 255); //green
+                }
+
+                bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
+                {
+                    if (is_set == false)
+                    {
+                        error_report(PIXEL_ISNT_SET);    
+                        return PIXEL_ISNT_SET;
+                    }
                 }
             }
-
-            // Vector size_v = window.get_size();
-
-            Vector size_v = Vector {Wndw_x_size, Wndw_y_size}; // <- temporary
-
-            if (cur_x_pos == size_v.x() - 1)
-            {
-                cur_x_pos = 0;
-                cur_y_pos = (cur_y_pos == size_v.y() - 1)? 0: cur_y_pos + 1;
-            }
-            else
-            {
-                cur_x_pos += 1;
-            }
         }
+
+        window.pixels_update();
+        window.pixels_draw();
+
+        window.display();
+
+        // fprintf(stderr, "\n displayed \n");
+
+        // Vector size_v = Vector {Wndw_x_size, Wndw_y_size}; // <- temporary
+
+        // if (cur_x_pos >= (unsigned) size_v.x() - 1)
+        // {
+        //     cur_x_pos = 0;
+        //     cur_y_pos = (cur_y_pos == (unsigned) size_v.y() - 1)? 0: cur_y_pos + 1;
+        // }
+        // else
+        // {
+        //     cur_x_pos += 1;
+        // }
     }
 
     return 0;

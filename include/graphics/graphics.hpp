@@ -166,6 +166,8 @@ class PixelsWindow : public Window
                 pixels_ = new sf::Uint8[x_size_ * y_size_ * 4];
 
                 texture_.create(x_size_, y_size_);
+                texture_.update(pixels_, x_size_, y_size_, 0, 0);
+                
                 sprite_.setTexture(texture_);
             }
 
@@ -179,7 +181,7 @@ class PixelsWindow : public Window
 
         void pixels_update()
             {
-                texture_.update(pixels_);
+                texture_.update(pixels_, x_size_, y_size_, 0, 0);
             }
 
         void pixels_draw()

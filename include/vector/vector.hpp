@@ -22,6 +22,7 @@ class Vector
         Vector(double x, double y, double z = 0):
             x_(x), 
             y_(y),
+            z_(z),
             len_( ((!x_) && (!y_) && (!z_))? 0: NAN )
             {}
 

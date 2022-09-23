@@ -166,11 +166,8 @@ bool Grph::PixelsWindow::set_pixel(const Vector& pxl_pos, const Vector& pxl_val,
 
 //---------------------------------------------------------
 
-bool Grph::PixelsWindow::set_pixel(const Vector& pxl_pos, const Vector& pxl_val, unsigned char alpha)
+bool Grph::PixelsWindow::set_pixel(unsigned x_pos, unsigned y_pos, const Vector& pxl_val, unsigned char alpha)
 {
-    unsigned x_pos = (unsigned) pxl_pos.x();
-    unsigned y_pos = (unsigned) pxl_pos.y();
-
     if (x_pos < x_size_ && y_pos < y_size_)
     {
         unsigned cur_pos = y_pos * x_size_ + x_pos;

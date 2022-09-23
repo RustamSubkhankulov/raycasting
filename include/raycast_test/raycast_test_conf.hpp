@@ -4,6 +4,8 @@
 
 // Light calculation preferences & configuration values
 
+static const unsigned char Alpha_default = 255;
+
 //---------------------------------------------------------
 
 // Sphere preferences

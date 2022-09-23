@@ -12,7 +12,7 @@ OBJ = obj/main.o          \
 	  obj/coordsys.o      \
 	  obj/graphics.o	  \
 	  obj/raycast_test.o  \
-	  obj/raycast.obj
+	  obj/raycast.o
 
 #----------------------------------------------------------
 

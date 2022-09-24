@@ -8,11 +8,18 @@
 
 //=========================================================
 
+static const double Rot_angle_sin = sin(Rot_angle_rad);
+static const double Rot_angle_cos = cos(Rot_angle_rad);
+
+//=========================================================
+
 #ifdef FILL_COLOR
 
     static int pixels_array_fill(Grph::PixelsWindow* window);
 
 #endif 
+
+static void rotate_light(Light_src* light_src);
 
 //=========================================================
 
@@ -117,6 +124,8 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             }
         }
 
+        rotate_light(&light_src);
+
         window.pixels_update();
         window.pixels_draw();
 
@@ -124,6 +133,20 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
     }
 
     return 0;
+}
+
+//---------------------------------------------------------
+
+static void rotate_light(Light_src* light_src)
+{
+    assert(light_src);
+
+    Vector light_src_pos = light_src->pos;
+
+    Vector rotatable = {light_src_pos.x(), light_src_pos.z()};
+    rotatable.rotate_2d_only(Rot_angle_sin, Rot_angle_cos);
+
+    light_src->pos.set(rotatable.x(), light_src_pos.y(), rotatable.y());
 }
 
 //---------------------------------------------------------

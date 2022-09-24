@@ -20,6 +20,8 @@ static const double Sphere_rad_sqr = 4;
 
 // Light source preferences
 
+static const double Rot_angle_rad = (1 * M_PI / 180);
+
 static const Vector Light_src_pos{4, 3, 4};
 static const Vector Light_src_clr{255, 255, 255};
 

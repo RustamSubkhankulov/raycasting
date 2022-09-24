@@ -42,6 +42,24 @@ class Vector
                 z_ = z;
             }
 
+        void set_x(double x)
+            {
+                len_ = (fabs(x_) == fabs(x))? len_: NAN;
+                x_ = x;
+            }
+
+        void set_y(double y)
+            {
+                len_ = (fabs(y_) == fabs(y))? len_: NAN;
+                y_ = y;
+            }
+
+        void set_z(double z)
+            {
+                len_ = (fabs(z_) == fabs(z))? len_: NAN;
+                z_ = z;
+            }
+
         Vector& operator*= (double mul)
             {
                 set(x_ * mul, y_ * mul, z_ * mul);

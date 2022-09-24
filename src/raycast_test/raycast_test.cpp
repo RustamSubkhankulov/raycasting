@@ -61,13 +61,12 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
     coordsys.x_pos = Coordsys_x_pos;
     coordsys.y_pos = Coordsys_y_pos;
 
-    const Sphere sphere = {.center_pos = Vector{Sphere_center_pos_X, 
-                                                Sphere_center_pos_Y, 
-                                                Sphere_center_pos_Z}, 
-                           .rad = Sphere_rad};
-    const double sphere_rad_sqr = sphere.rad * sphere.rad;
+    const Sphere sphere = {.center_pos = Sphere_center_pos,
+                           .colour     = Sphere_colour,
+                           .rad_sqr    = Sphere_rad_sqr};
 
-    Vector light_pos{Light_src_x, Light_src_y, Light_src_z};
+    struct Light_src light_src = {.pos = Light_src_pos,
+                                  .clr = Light_src_clr};
 
     Grph::PixelsWindow window{Wndw_x_size, Wndw_y_size};
 
@@ -78,9 +77,6 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             return err;
 
     #endif 
-
-    // unsigned cur_x_pos = 0;
-    // unsigned cur_y_pos = 0;
 
     while (window.is_open())
     {
@@ -106,16 +102,7 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
                 // fprintf(stderr, "\n converted: %lf %lf \n", cur_point.x(), cur_point.y());
                 // fprintf(stderr, "\n real     : %lf %lf \n", cur_point_r.x(), cur_point_r.y());
 
-                Vector cur_point_rgb{};
-
-                if (cur_point.x() * cur_point.x() + cur_point.y() * cur_point.y() <= sphere_rad_sqr)
-                {
-                    cur_point_rgb.set(255, 0, 0); //red
-                }
-                else 
-                {
-                    cur_point_rgb.set(255, 255, 255); //green
-                }
+                Vector cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point);
 
                 bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
                 {
@@ -132,21 +119,9 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
         window.pixels_draw();
 
         window.display();
-
-        // fprintf(stderr, "\n displayed \n");
-
-        // Vector size_v = Vector {Wndw_x_size, Wndw_y_size}; // <- temporary
-
-        // if (cur_x_pos >= (unsigned) size_v.x() - 1)
-        // {
-        //     cur_x_pos = 0;
-        //     cur_y_pos = (cur_y_pos == (unsigned) size_v.y() - 1)? 0: cur_y_pos + 1;
-        // }
-        // else
-        // {
-        //     cur_x_pos += 1;
-        // }
     }
 
     return 0;
 }
+
+//---------------------------------------------------------

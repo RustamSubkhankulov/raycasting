@@ -8,14 +8,7 @@
 #include "../vector/vector.hpp"
 #include "../graphics/graphics.hpp"
 #include "../coordsys/coordsys.hpp"
-
-//=========================================================
-
-struct Sphere
-{
-    Vector center_pos{};
-    double rad = 0;
-};
+#include "../raycast/raycast.hpp"
 
 //=========================================================
 

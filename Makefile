@@ -12,7 +12,8 @@ OBJ = obj/main.o          \
 	  obj/coordsys.o      \
 	  obj/graphics.o	  \
 	  obj/raycast_test.o  \
-	  obj/raycast.o
+	  obj/raycast.o		  \
+	  obj/general.o
 
 #----------------------------------------------------------
 
@@ -108,7 +109,10 @@ obj/coordsys.o: src/coordsys/coordsys.cpp include/coordsys/coordsys.hpp
 obj/raycast_test.o:  src/raycast_test/raycast_test.cpp include/raycast_test/raycast_test.hpp \
 													   include/graphics/graphics.hpp \
 													   include/raycast_test/raycast_test_conf.hpp
-	$(CC)		src/raycast_test/raycast_test.cpp 	-c -o obj/raycast_test.o 	  $(FLAGS) $(CXXFLAGS)
+	$(CC)		src/raycast_test/raycast_test.cpp   -c -o obj/raycast_test.o  $(FLAGS) $(CXXFLAGS)
 
-obj/raycast.o:	src/raycast/raycast.cpp include/raycast/raycast.hpp 
+obj/raycast.o:	src/raycast/raycast.cpp include/raycast/raycast.hpp include/raycast/raycast_conf.hpp
 	$(CC)		src/raycast/raycast.cpp				-c -o obj/raycast.o       $(FLAGS) $(CXXFLAGS)	
+
+obj/general.o:  src/general/general.cpp include/general/general.hpp include/general/general_conf.hpp 
+	$(CC)		src/general/general.cpp				-c -o obj/general.o 	  $(FLAGS) $(CXXFLAGS)

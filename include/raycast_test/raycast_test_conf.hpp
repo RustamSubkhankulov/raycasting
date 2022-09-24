@@ -12,7 +12,7 @@ static const unsigned char Alpha_default = 255;
 
 static const Vector Sphere_center_pos{0, 0, 0};
 
-static const Vector Sphere_colour{255, 255, 255}; 
+static const Vector Sphere_colour{0, 0, 255}; 
 
 static const double Sphere_rad_sqr = 4;
 
@@ -20,8 +20,10 @@ static const double Sphere_rad_sqr = 4;
 
 // Light source preferences
 
-static const Vector Light_src_pos{4, 4, 3  };
-static const Vector Light_src_clr{0, 0, 255};
+static const Vector Light_src_pos{4, 3, 4};
+static const Vector Light_src_clr{255, 255, 255};
+
+static const Vector View_point{0, 0, 4};
 
 //---------------------------------------------------------
 

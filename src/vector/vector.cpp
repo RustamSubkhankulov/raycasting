@@ -33,6 +33,11 @@ Vector operator* (const Vector& v, double mul)
     return Vector {v.x_ * mul, v.y_ * mul, v.z_ * mul};
 }
 
+Vector operator* (double mul, const Vector& v)
+{
+    return Vector {v.x_ * mul, v.y_ * mul, v.z_ * mul};
+}
+
 double operator* (const Vector& a, const Vector& b)
 {
     return a.x_ * b.x_ + a.y_ * b.y_ + a.z_ * b.z_;

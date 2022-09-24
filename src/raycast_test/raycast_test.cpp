@@ -68,6 +68,8 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
     struct Light_src light_src = {.pos = Light_src_pos,
                                   .clr = Light_src_clr};
 
+    Vector view_point = View_point;
+
     Grph::PixelsWindow window{Wndw_x_size, Wndw_y_size};
 
     #ifdef FILL_COLOR
@@ -102,7 +104,7 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
                 // fprintf(stderr, "\n converted: %lf %lf \n", cur_point.x(), cur_point.y());
                 // fprintf(stderr, "\n real     : %lf %lf \n", cur_point_r.x(), cur_point_r.y());
 
-                Vector cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point);
+                Vector cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point, view_point);
 
                 bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
                 {

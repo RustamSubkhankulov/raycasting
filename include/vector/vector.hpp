@@ -108,6 +108,7 @@ class Vector
         friend double operator* (const Vector& a, const Vector& b);  
         friend Vector operator% (const Vector& a, const Vector& b);
         friend Vector operator* (const Vector& v, double mul);
+        friend Vector operator* (double mul, const Vector& v);
 };
 
 //---------------------------------------------------------

@@ -14,8 +14,6 @@ static void calculate_z_coord(Vector* point, const Sphere& sphere);
 static Vector calc_components(const Light_src& light_src, const Sphere& sphere, 
                                        Vector& cur_point, Vector& view_point);
 
-static Vector rgb_normalize(const Vector& rgb_v);
-
 //=========================================================
 
 Vector raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
@@ -55,24 +53,22 @@ static Vector calc_components(const Light_src& light_src, const Sphere& sphere,
     normal.normalize();
 
     Vector l = light_src.pos - cur_point;
+    l.normalize();
 
-    double cos_fi   = l * normal / l.len();
+    double cos_fi = l * normal;
     
     Vector d_comp =  (cos_fi < 0)? 
                       Vector{} : 
                       cos_fi * D_coeff * rgb_normalize(light_src.clr % sphere.colour);
     res += d_comp;
 
-    Vector l1 = 2 * l.len() * cos_fi * normal - l;
+    Vector l1 = 2 * cos_fi * normal -  l;
     Vector v  = view_point - cur_point;
 
     double cos_alpha = l1 * v / (l1.len() * v.len()); 
     if (cos_alpha < 0) cos_alpha = 0;
     
-    Vector s_comp = (cos_fi < 0) ? 
-                     Vector{} :
-                     pow(cos_alpha, Glare_power) * S_coeff * light_src.clr;
-    
+    Vector s_comp = pow(cos_alpha, Glare_power) * S_coeff * light_src.clr;
     res += s_comp;
 
     return res;
@@ -98,7 +94,7 @@ static void calculate_z_coord(Vector* point, const Sphere& sphere)
 
 //---------------------------------------------------------
 
-static Vector rgb_normalize(const Vector& rgb_v)
+Vector rgb_normalize(const Vector& rgb_v)
 {
     double r = rgb_v.x();
     double g = rgb_v.y();

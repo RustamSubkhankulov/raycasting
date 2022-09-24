@@ -2,7 +2,7 @@
 
 //=========================================================
 
-static const unsigned Glare_power = 15;
+static const unsigned Glare_power = 25;
 
 // diffuse lighting
 static const double D_coeff = 0.7;
@@ -11,6 +11,6 @@ static const double D_coeff = 0.7;
 static const double A_coeff = 0.1;
 
 // glare intensity
-static const double S_coeff = 0.3;
+static const double S_coeff = 0.7;
 
 //=========================================================

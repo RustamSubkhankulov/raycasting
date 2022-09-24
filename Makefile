@@ -83,7 +83,7 @@ dir:
 	mkdir -p obj
 
 clean:
-	rm obj/*.o raycast
+	rm obj/*.o raycast_test
 
 #----------------------------------------------------------
 

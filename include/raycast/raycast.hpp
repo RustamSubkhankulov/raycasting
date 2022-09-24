@@ -27,5 +27,7 @@ struct Sphere
 
 //=========================================================
 
+Vector rgb_normalize(const Vector& rgb_v);
+
 Vector raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
                                      Vector& cur_point, Vector& view_point);

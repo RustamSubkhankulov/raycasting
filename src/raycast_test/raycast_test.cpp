@@ -109,8 +109,10 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             {
                 Vector cur_point_r{(double) cur_x_pos, (double) cur_y_pos};
                 Vector cur_point = coordsys.reverse_convert_coord(cur_point_r);
+                cur_point.set_z(-Display_plane_d);
 
                 Colour cur_point_rgb = raycast_sphere_point(scene, cur_point, sphere);
+                // fprintf(stderr, "%u%u%u\n", cur_point_rgb.get_r(), cur_point_rgb.get_g(), cur_point_rgb.get_b());
 
                 bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
                 {
@@ -141,10 +143,18 @@ static Colour raycast_sphere_point(const Scene& scene, const Vector& cur_point,
 {
     Vector straight{cur_point - scene.view_point};
 
+    // fprintf(stderr, "cp %lf%lf%lf\n", cur_point.x(), cur_point.y(), cur_point.z());
+
     Vector cross_point{};
     bool is_cross = get_straight_sphere_crossing(scene.view_point, straight, sphere, &cross_point);
     if (is_cross == false)
         return Colour{};
+
+    // static int iter = 0;
+    // if (is_cross)
+    // {
+    //     fprintf(stderr, "A%d\n", iter++);
+    // }
     
     Vector normal = cross_point - sphere.center_pos;
     normal.normalize();
@@ -184,29 +194,41 @@ static bool get_straight_sphere_crossing(const Vector& vp, const Vector& straigh
 
     // (k1^2 + k2^2 + k3^2)t^2 + 2 * (k1w1 + k2w2 + k3w3)t + (w1^2 + w2^2 + w3^2 - R^2) = 0
 
-    double a = k1 * k1 + k2 * k2 + k3 * k3;
-    double b = 2 * (k1 * w1 + k2 * w2 + k3 * w3);
-    double c = w1 * w1 + w2 * w2 + w3 * w3 - sphere.rad_sqr;
+    // double a = k1 * k1 + k2 * k2 + k3 * k3;
+    // double b = 2 * (k1 * w1 + k2 * w2 + k3 * w3);
+    // double c = w1 * w1 + w2 * w2 + w3 * w3 - sphere.rad_sqr;
+
+    Vector straight_ = straight;
+    Vector vp_ = vp;
+    double a = straight_.len();
+    double b = 2 * (straight_ * vp);
+    double c = vp_.len() - sphere.rad_sqr;
 
     Equation equ = {.a = a, .b = b, .c = c};
     solve_equation(&equ);
 
+    // fprintf(stderr, "%lf\n", b * b - 4 * a * c);
+
     double t = 0;
 
-    if (equ.roots_ct = ONE_ROOT)
+    if (equ.roots_ct == ONE_ROOT)
     {
         t = equ.root1;
     }
-    else if (equ.roots_ct = TWO_ROOTS)
+    else if (equ.roots_ct == TWO_ROOTS)
     {
         t = (equ.root1 > equ.root2)? equ.root2: equ.root1;
     }
     else 
     {
+        fprintf(stderr, "A\n");
         return false;
     }
 
     *cross_point = vp + t * straight;
+
+    // fprintf(stderr, "cp %lf|%lf|%lf\n", cross_point->x(), cross_point->y(), cross_point->z());
+
     return true;
 }
 
@@ -218,12 +240,12 @@ static void setup_scene(Scene* scene)
 
     *scene = {.light_src     = {.pos = Light_src_pos, .clr = Light_src_clr},
 
-              .view_point    = View_point,
+              .view_point    = View_point};
 
-              .display_plane = {.a = Display_plane_a, 
-                                .b = Display_plane_b,
-                                .c = Display_plane_c,
-                                .d = Display_plane_d}};
+            //   .display_plane = {.a = Display_plane_a, 
+            //                     .b = Display_plane_b,
+            //                     .c = Display_plane_c,
+            //                     .d = Display_plane_d}};
 
     return;
 }

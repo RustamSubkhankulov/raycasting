@@ -33,7 +33,7 @@ struct Scene
 {
     Light_src     light_src    {};
     Vector        view_point   {};
-    Display_plane display_plane{};
+    // Display_plane display_plane{};
 };
 
 

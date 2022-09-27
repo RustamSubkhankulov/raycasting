@@ -30,9 +30,11 @@ Colour raycast_point(const Scene& scene, const Point_info& point_info)
 
     Colour d_comp = (cos_fi < 0)?
                      Colour{} :
-                     cos_fi * D_coeff * (scene.light_src.clr % point_info.colour);
+                    (cos_fi * D_coeff) * (scene.light_src.clr % point_info.colour);
 
+    // fprintf(stderr, "%u%u%u\n", d_comp.get_r(), d_comp.get_g(), d_comp.get_b());
     res += d_comp;
+    // fprintf(stderr, "%u%u%u\n", res.get_r(), res.get_g(), res.get_b());
 
     Vector l1 = 2 * cos_fi * point_info.normal -  l;
     Vector v  = scene.view_point - point_info.coords;

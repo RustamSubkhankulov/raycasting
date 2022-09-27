@@ -88,6 +88,8 @@ class Colour
                 double b = rgb_v_.z() * c.rgb_v_.z();
 
                 rgb_v_.set(r, g, b);
+                rgb_norm();
+                
                 return *this;
             }
 

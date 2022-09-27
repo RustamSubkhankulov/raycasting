@@ -7,13 +7,14 @@
 #include "raycast_conf.hpp"
 #include "../logs/logs.hpp"
 #include "../vector/vector.hpp"
+#include "../colour/colour.hpp"
 
 //=========================================================
 
 struct Light_src
 {
     Vector pos{};
-    Vector clr{};
+    Colour clr{};
 };
 
 //---------------------------------------------------------
@@ -21,13 +22,11 @@ struct Light_src
 struct Sphere
 {
     Vector center_pos{};
-    Vector colour{};
+    Colour colour{};
     double rad_sqr = 0;
 };
 
 //=========================================================
 
-Vector rgb_normalize(const Vector& rgb_v);
-
-Vector raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
+Colour raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
                                      Vector& cur_point, Vector& view_point);

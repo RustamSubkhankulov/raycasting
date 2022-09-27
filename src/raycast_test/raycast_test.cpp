@@ -103,7 +103,7 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
                 Vector cur_point_r{(double) cur_x_pos, (double) cur_y_pos};
                 Vector cur_point = coordsys.reverse_convert_coord(cur_point_r);
 
-                Vector cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point, view_point);
+                Colour cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point, view_point);
 
                 bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
                 {

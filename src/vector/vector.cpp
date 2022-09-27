@@ -28,12 +28,12 @@ Vector operator- (const Vector& a, const Vector& b)
     return res;
 }
 
-Vector operator* (const Vector& v, double mul)
+Vector operator* (const Vector& v, const double mul)
 {
     return Vector {v.x_ * mul, v.y_ * mul, v.z_ * mul};
 }
 
-Vector operator* (double mul, const Vector& v)
+Vector operator* (const double mul, const Vector& v)
 {
     return Vector {v.x_ * mul, v.y_ * mul, v.z_ * mul};
 }
@@ -41,11 +41,6 @@ Vector operator* (double mul, const Vector& v)
 double operator* (const Vector& a, const Vector& b)
 {
     return a.x_ * b.x_ + a.y_ * b.y_ + a.z_ * b.z_;
-}
-
-Vector operator% (const Vector& a, const Vector& b)
-{
-    return Vector {a.x_ * b.x_, a.y_ * b.y_, a.z_ * b.z_};
 }
 
 //---------------------------------------------------------
@@ -57,7 +52,7 @@ Vector operator- (const Vector& v)
 
 //---------------------------------------------------------
 
-void Vector::rotate_2d_only(double rad_angle)
+void Vector::rotate_2d_only(const double rad_angle)
 {
     double sinus  = sin(rad_angle);
     double cosine = cos(rad_angle);
@@ -65,7 +60,7 @@ void Vector::rotate_2d_only(double rad_angle)
     rotate_2d_only(sinus, cosine);
 }
 
-void Vector::rotate_2d_only(double sin, double cos)
+void Vector::rotate_2d_only(const double sin, const double cos)
 {
     double x1 = x_;
     double y1 = y_;

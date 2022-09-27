@@ -6,6 +6,7 @@
 
 #include "../logs/logs.hpp"
 #include "../vector/vector.hpp"
+#include "../colour/colour.hpp"
 #include "../graphics/graphics.hpp"
 #include "../coordsys/coordsys.hpp"
 #include "../raycast/raycast.hpp"

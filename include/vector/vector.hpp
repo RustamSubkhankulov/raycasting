@@ -19,7 +19,7 @@ class Vector
 
         Vector() {}
 
-        Vector(double x, double y, double z = 0):
+        Vector(const double x, const double y, const double z = 0):
             x_(x), 
             y_(y),
             z_(z),
@@ -33,7 +33,7 @@ class Vector
         Vector& operator= (const Vector&)  = default; //copy assignment
         Vector& operator= (Vector&&)       = default; //move assignment
 
-        void set(double x, double y, double z = 0)
+        void set(const double x, const double y, const double z = 0)
             {
                 len_ = ((fabs(x_) == fabs(x)) 
                      && (fabs(y_) == fabs(y))
@@ -43,25 +43,25 @@ class Vector
                 z_ = z;
             }
 
-        void set_x(double x)
+        void set_x(const double x)
             {
                 len_ = (fabs(x_) == fabs(x))? len_: NAN;
                 x_ = x;
             }
 
-        void set_y(double y)
+        void set_y(const double y)
             {
                 len_ = (fabs(y_) == fabs(y))? len_: NAN;
                 y_ = y;
             }
 
-        void set_z(double z)
+        void set_z(const double z)
             {
                 len_ = (fabs(z_) == fabs(z))? len_: NAN;
                 z_ = z;
             }
 
-        Vector& operator*= (double mul)
+        Vector& operator*= (const double mul)
             {
                 set(x_ * mul, y_ * mul, z_ * mul);
                 return *this;
@@ -92,20 +92,20 @@ class Vector
                 return len_;
             }
 
-        void rotate_2d_only(double rad_angle);
-        void rotate_2d_only(double sin, double cos);
+        void rotate_2d_only(const double rad_angle);
+        void rotate_2d_only(const double sin, double cos);
 
         void normalize();
 
         friend Vector orthogonal_2d_only(const Vector& v);
 
         friend Vector operator- (const Vector& a);
-        friend Vector operator+ (const Vector& a, const Vector& b);   
-        friend Vector operator- (const Vector& a, const Vector& b);  
-        friend double operator* (const Vector& a, const Vector& b);  
-        friend Vector operator% (const Vector& a, const Vector& b);
-        friend Vector operator* (const Vector& v, double mul);
-        friend Vector operator* (double mul, const Vector& v);
+        friend Vector operator+ (const Vector& a,  const Vector& b);   
+        friend Vector operator- (const Vector& a,  const Vector& b);  
+        friend double operator* (const Vector& a,  const Vector& b);  
+        friend Vector operator% (const Vector& a,  const Vector& b);
+        friend Vector operator* (const Vector& v,  const double mul);
+        friend Vector operator* (const double mul, const Vector& v);
 };
 
 //---------------------------------------------------------
@@ -143,12 +143,12 @@ class Vector_posed
                 vector_ = v;
             }
 
-        void rotate_2d_only(double rad_angle)
+        void rotate_2d_only(const double rad_angle)
             {
                 vector_.rotate_2d_only(rad_angle);
             }
 
-        void rotate_2d_only(double sin, double cos)
+        void rotate_2d_only(const double sin, const double cos)
             {
                 vector_.rotate_2d_only(sin, cos);
             }
@@ -156,7 +156,7 @@ class Vector_posed
         Vector vector() const { return vector_; }
         Vector point()  const { return point_;  }
 
-        Vector_posed& operator*= (double mul)
+        Vector_posed& operator*= (const double mul)
             {
                 vector_ *= mul;
                 return *this;
@@ -185,7 +185,7 @@ class Vector_posed
 
         void set_dir(const Vector& dir)
             {
-                set_vector( dir - point_ );
+                set_vector(dir - point_);
             }
 };
 

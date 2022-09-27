@@ -87,7 +87,8 @@ OBJ = $(OBJ_DIR)/main.o          \
 	  $(OBJ_DIR)/graphics.o	  	 \
 	  $(OBJ_DIR)/raycast_test.o  \
 	  $(OBJ_DIR)/raycast.o		 \
-	  $(OBJ_DIR)/general.o
+	  $(OBJ_DIR)/general.o		 \
+	  $(OBJ_DIR)/colour.o		 
 
 #==========================================================
 # FUNCTIONS
@@ -158,6 +159,11 @@ $(OBJ_DIR)/raycast.o:		$(call MINIMAL_DEP,raycast)								\
 $(OBJ_DIR)/general.o:  		$(call MINIMAL_DEP,general)								\
 							$(INC_DIR)/general/general_conf.hpp 
 	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/colour.o: 		$(call MINIMAL_DEP,colour)
+	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
 
 #==========================================================
 # .PHONY TARGETS

@@ -10,6 +10,7 @@
 //---------------------------------------------------------
 
 #include "../vector/vector.hpp"
+#include "../colour/colour.hpp"
 #include "../coordsys/coordsys.hpp"
 
 //=========================================================
@@ -176,8 +177,8 @@ class PixelsWindow : public Window
                 delete[] pixels_;
             }
 
-        bool set_pixel(const Vector& pxl_pos, const Vector& pxl_val, unsigned char alpha);
-        bool set_pixel(unsigned x_pos, unsigned y_pos, const Vector& pxl_val, unsigned char alpha);
+        bool set_pixel(const Vector& pxl_pos,          const Colour& pxl_val, unsigned char alpha);
+        bool set_pixel(unsigned x_pos, unsigned y_pos, const Colour& pxl_val, unsigned char alpha);
 
         void pixels_update()
             {

@@ -22,7 +22,7 @@ static const double Sphere_rad_sqr = 4;
 
 static const double Rot_angle_rad = (1 * M_PI / 180);
 
-static const Vector Light_src_pos{2, 5, 2};
+static const Vector Light_src_pos{3, 5, 3};
 static const Vector Light_src_clr{255, 255, 255};
 
 static const Vector View_point{0, 0, 4};

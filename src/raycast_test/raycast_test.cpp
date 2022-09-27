@@ -94,11 +94,6 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
         {
             if (event.type() == Grph::Event_type::Closed)
                 window.close();
-
-            if (event.type() == Grph::Event_type::Resized)
-            {
-                //
-            }
         }
 
         for (unsigned cur_y_pos = 0; cur_y_pos < Wndw_y_size; cur_y_pos++)
@@ -107,9 +102,6 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             {
                 Vector cur_point_r{(double) cur_x_pos, (double) cur_y_pos};
                 Vector cur_point = coordsys.reverse_convert_coord(cur_point_r);
-                
-                // fprintf(stderr, "\n converted: %lf %lf \n", cur_point.x(), cur_point.y());
-                // fprintf(stderr, "\n real     : %lf %lf \n", cur_point_r.x(), cur_point_r.y());
 
                 Vector cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point, view_point);
 
@@ -124,12 +116,12 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
             }
         }
 
-        rotate_light(&light_src);
-
         window.pixels_update();
         window.pixels_draw();
-
+        
         window.display();
+
+        rotate_light(&light_src);
     }
 
     return 0;

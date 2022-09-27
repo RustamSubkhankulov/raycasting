@@ -26,6 +26,7 @@ class Vector
             len_( ((!x_) && (!y_) && (!z_))? 0: NAN )
             {}
 
+        ~Vector()             = default;
         Vector(const Vector&) = default; //copy ctor
         Vector(Vector&&)      = default; //move ctor
 
@@ -77,11 +78,6 @@ class Vector
                 set(x_ - v.x_, y_ - v.y_, z_ - v.z_);
                 return *this;
             }
-        
-        Vector operator- ()
-            {
-                return Vector {- x_, - y_, -z_};
-            }
 
         double x() const { return x_; }
         double y() const { return y_; }
@@ -103,6 +99,7 @@ class Vector
 
         friend Vector orthogonal_2d_only(const Vector& v);
 
+        friend Vector operator- (const Vector& a);
         friend Vector operator+ (const Vector& a, const Vector& b);   
         friend Vector operator- (const Vector& a, const Vector& b);  
         friend double operator* (const Vector& a, const Vector& b);  

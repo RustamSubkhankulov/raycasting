@@ -32,6 +32,13 @@ class Coordsys
             y_size_(y_size)
             {}
 
+        ~Coordsys()               = default;
+        Coordsys(const Coordsys&) = default;
+        Coordsys(Coordsys&&)      = default;
+
+        Coordsys& operator= (const Coordsys&) = default;
+        Coordsys& operator= (Coordsys&&)      = default;
+
         Vector convert_coord        (const Vector& p); 
         Vector reverse_convert_coord(const Vector& p);
 

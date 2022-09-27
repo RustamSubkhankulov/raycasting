@@ -5,7 +5,7 @@
 //---------------------------------------------------------
 
 #include "raycast_conf.hpp"
-#include "../logs/logs.h"
+#include "../logs/logs.hpp"
 #include "../vector/vector.hpp"
 
 //=========================================================

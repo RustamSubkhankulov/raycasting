@@ -50,6 +50,13 @@ Vector operator% (const Vector& a, const Vector& b)
 
 //---------------------------------------------------------
 
+Vector operator- (const Vector& v)
+{
+    return Vector{ - v.x_, - v.y_, - v.z_ };
+}
+
+//---------------------------------------------------------
+
 void Vector::rotate_2d_only(double rad_angle)
 {
     double sinus  = sin(rad_angle);

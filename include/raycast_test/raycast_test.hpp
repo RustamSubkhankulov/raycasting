@@ -4,7 +4,7 @@
 
 //---------------------------------------------------------
 
-#include "../logs/logs.h"
+#include "../logs/logs.hpp"
 #include "../vector/vector.hpp"
 #include "../graphics/graphics.hpp"
 #include "../coordsys/coordsys.hpp"

@@ -1,69 +1,74 @@
-# compiler
+#==========================================================
+#CONFIG
+#==========================================================
 
-CC  = g++
+# compilers
+CXX  = g++
+CC   = gcc
+
+# object files output directory
+OBJ_DIR = obj
+
+# source files input directory
+SRC_DIR = src
+
+# header files directory
+INC_DIR = include
+
+# bool flag (0 or 1) - shows whether use flags ot not
+USE_DEBUG_FLAGS = 0
+
+#==========================================================
+# FLAGS
+#==========================================================
+
+# flags for c++ 
+CXXFLAGS = -O2
+
+# flags for c
+CFLAGS   = -O2
 
 #----------------------------------------------------------
 
-# obj files
-
-OBJ = obj/main.o          \
-	  obj/vector.o        \
-	  obj/logs.o          \
-	  obj/coordsys.o      \
-	  obj/graphics.o	  \
-	  obj/raycast_test.o  \
-	  obj/raycast.o		  \
-	  obj/general.o
-
-#----------------------------------------------------------
-
-CXXFLAGS = -O2 -g
-
-#----------------------------------------------------------
-
+# flags needed to use with sfml
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 #----------------------------------------------------------
 
-# bool flag - shows whether use flags ot not
+ifeq ($(USE_DEBUG_FLAGS), 1)
 
-USE_FLAGS = 0
-
-#----------------------------------------------------------
-
-ifeq ($(USE_FLAGS), 1)
-
-	FLAGS = -lubsan -D NDEBUG -g -std=c++20 -fmax-errors=1 				\
-			-Wall -Wextra -Weffc++ -Waggressive-loop-optimizations  	\
-			-Wc++0x-compat -Wc++11-compat -Wc++14-compat  				\
-			-Wcast-qual -Wchar-subscripts -Wconditionally-supported 	\
-			-Wconversion  -Wctor-dtor-privacy -Wempty-body 				\
-			-Wfloat-equal -Wformat-nonliteral -Wformat-security 		\
-			-Wformat-signedness -Wformat=2 -Winline  -Wlogical-op 		\
-			-Wmissing-declarations  -Wnon-virtual-dtor -Wopenmp-simd	\
-			-Woverloaded-virtual -Wpacked -Wpointer-arith 				\
-			-Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo	\
-			-Wstack-usage=8192  -Wstrict-null-sentinel 					\
-			-Wstrict-overflow=2 -Wsuggest-attribute=noreturn 			\
-			-Wsuggest-final-methods -Wsuggest-final-types  				\
-			-Wsuggest-override -Wswitch-default -Wswitch-enum 			\
-			-Wsync-nand -Wundef  -Wunreachable-code -Wunused 			\
-			-Wuseless-cast -Wvariadic-macros -Wno-literal-suffix 		\
-			-Wno-missing-field-initializers -Wno-narrowing				\
-			-Wno-old-style-cast -Wno-varargs -fcheck-new 				\
-			-fsized-deallocation  -fstack-protector 					\
-			-fstrict-overflow   -flto-odr-type-merging 					\
-			-fno-omit-frame-pointer -fPIE -fsanitize=address  			\
-			-fsanitize=bool -fsanitize=bounds -fsanitize=enum  			\
-			-fsanitize=float-cast-overflow 								\
-			-fsanitize=float-divide-by-zero 							\
-			-fsanitize=integer-divide-by-zero -fsanitize=leak 			\
-			-fsanitize=nonnull-attribute -fsanitize=null 				\
-			-fsanitize=object-size -fsanitize=return 					\
-			-fsanitize=returns-nonnull-attribute -fsanitize=shift 		\
-			-fsanitize=signed-integer-overflow -fsanitize=undefined 	\
-			-fsanitize=unreachable -fsanitize=vla-bound 				\
-			-fsanitize=vptr -lm -pie
+	DEBUG_FLAGS = 												\
+	-lubsan -D NDEBUG -g -std=c++20 -fmax-errors=1 				\
+	-Wall -Wextra -Weffc++ -Waggressive-loop-optimizations  	\
+	-Wc++0x-compat -Wc++11-compat -Wc++14-compat  				\
+	-Wcast-qual -Wchar-subscripts -Wconditionally-supported 	\
+	-Wconversion  -Wctor-dtor-privacy -Wempty-body 				\
+	-Wfloat-equal -Wformat-nonliteral -Wformat-security 		\
+	-Wformat-signedness -Wformat=2 -Winline  -Wlogical-op 		\
+	-Wmissing-declarations  -Wnon-virtual-dtor -Wopenmp-simd	\
+	-Woverloaded-virtual -Wpacked -Wpointer-arith 				\
+	-Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo	\
+	-Wstack-usage=8192  -Wstrict-null-sentinel 					\
+	-Wstrict-overflow=2 -Wsuggest-attribute=noreturn 			\
+	-Wsuggest-final-methods -Wsuggest-final-types  				\
+	-Wsuggest-override -Wswitch-default -Wswitch-enum 			\
+	-Wsync-nand -Wundef  -Wunreachable-code -Wunused 			\
+	-Wuseless-cast -Wvariadic-macros -Wno-literal-suffix 		\
+	-Wno-missing-field-initializers -Wno-narrowing				\
+	-Wno-old-style-cast -Wno-varargs -fcheck-new 				\
+	-fsized-deallocation  -fstack-protector 					\
+	-fstrict-overflow   -flto-odr-type-merging 					\
+	-fno-omit-frame-pointer -fPIE -fsanitize=address  			\
+	-fsanitize=bool -fsanitize=bounds -fsanitize=enum  			\
+	-fsanitize=float-cast-overflow 								\
+	-fsanitize=float-divide-by-zero 							\
+	-fsanitize=integer-divide-by-zero -fsanitize=leak 			\
+	-fsanitize=nonnull-attribute -fsanitize=null 				\
+	-fsanitize=object-size -fsanitize=return 					\
+	-fsanitize=returns-nonnull-attribute -fsanitize=shift 		\
+	-fsanitize=signed-integer-overflow -fsanitize=undefined 	\
+	-fsanitize=unreachable -fsanitize=vla-bound 				\
+	-fsanitize=vptr -lm -pie
 
 else
 
@@ -72,47 +77,99 @@ else
 endif
 
 #==========================================================
+# OBJECT FILES LIST
+#==========================================================
 
-all: dir raycast_
+OBJ = $(OBJ_DIR)/main.o          \
+	  $(OBJ_DIR)/vector.o        \
+	  $(OBJ_DIR)/logs.o          \
+	  $(OBJ_DIR)/coordsys.o      \
+	  $(OBJ_DIR)/graphics.o	  	 \
+	  $(OBJ_DIR)/raycast_test.o  \
+	  $(OBJ_DIR)/raycast.o		 \
+	  $(OBJ_DIR)/general.o
+
+#==========================================================
+# FUNCTIONS
+#==========================================================
+
+MINIMAL_DEP = $(SRC_DIR)/$(1)/$(1).cpp $(INC_DIR)/$(1)/$(1).hpp
+
+#==========================================================
+# TARGETS
+#==========================================================
+
+all: dir raycast_test
 
 #----------------------------------------------------------
+
+raycast_test: $(OBJ)
+	$(CXX) $(OBJ) $(SFML_FLAGS) -o $(@)
+
+
+##---------------------------------------------------------
+
+$(OBJ_DIR)/main.o:    		$(SRC_DIR)/main/main.cpp 								\
+							$(INC_DIR)/raycast_test/raycast_test.hpp
+	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/vector.o:		$(call MINIMAL_DEP,vector)
+	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/graphics.o: 		$(call MINIMAL_DEP,graphics)							\
+							$(INC_DIR)/vector/vector.hpp 							\
+							$(INC_DIR)/coordsys/coordsys.hpp
+	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/logs.o:     		$(call MINIMAL_DEP,logs)								\
+							$(INC_DIR)/logs/errors.h 								\
+							codegen/err_descr.txt
+	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/coordsys.o: 		$(call MINIMAL_DEP,coordsys)
+	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/raycast_test.o:  $(call MINIMAL_DEP,raycast_test)						\
+							$(INC_DIR)/graphics/graphics.hpp 				 		\
+							$(INC_DIR)/raycast_test/raycast_test_conf.hpp 	 		\
+							$(INC_DIR)/coordsys/coordsys.hpp 				 		\
+							$(INC_DIR)/vector/vector.hpp 	 				 		
+	$(CXX)				   	$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/raycast.o:		$(call MINIMAL_DEP,raycast)								\
+							$(INC_DIR)/raycast/raycast_conf.hpp 					\
+							$(INC_DIR)/vector/vector.hpp
+	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)	
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/general.o:  		$(call MINIMAL_DEP,general)								\
+							$(INC_DIR)/general/general_conf.hpp 
+	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+
+#==========================================================
+# .PHONY TARGETS
+#==========================================================
 
 .PHONY: dir clean
 
-dir:
-	mkdir -p obj
+dir: obj
+	@ mkdir -p obj
 
 clean:
-	rm obj/*.o raycast_test
+	- rm $(OBJ_DIR)/*.o 
+	- rm raycast_test
 
-#----------------------------------------------------------
-
-raycast_: $(OBJ)
-	$(CC) $(OBJ) $(SFML_FLAGS) -o raycast_test
-
-obj/main.o:     src/main.cpp include/raycast_test/raycast_test.hpp
-	$(CC) 		src/main.cpp              			-c -o obj/main.o     	  $(FLAGS) $(CXXFLAGS) 
-
-obj/vector.o:	src/vector/vector.cpp include/vector/vector.hpp
-	$(CC) 		src/vector/vector.cpp     			-c -o obj/vector.o   	  $(FLAGS) $(CXXFLAGS)
-
-obj/graphics.o: src/graphics/graphics.cpp include/graphics/graphics.hpp include/vector/vector.hpp \
-																    include/coordsys/coordsys.hpp
-	$(CC)		src/graphics/graphics.cpp 			-c -o obj/graphics.o 	  $(FLAGS) $(CXXFLAGS)
-
-obj/logs.o:     src/logs/logs.cpp include/logs/errors.h include/logs/logs.h codegen/err_descr.txt
-	$(CC) 		src/logs/logs.cpp 			        -c -o obj/logs.o     	  $(FLAGS) $(CXXFLAGS)
-
-obj/coordsys.o: src/coordsys/coordsys.cpp include/coordsys/coordsys.hpp
-	$(CC) 		src/coordsys/coordsys.cpp 			-c -o obj/coordsys.o 	  $(FLAGS) $(CXXFLAGS) 
-
-obj/raycast_test.o:  src/raycast_test/raycast_test.cpp include/raycast_test/raycast_test.hpp \
-													   include/graphics/graphics.hpp \
-													   include/raycast_test/raycast_test_conf.hpp
-	$(CC)		src/raycast_test/raycast_test.cpp   -c -o obj/raycast_test.o  $(FLAGS) $(CXXFLAGS)
-
-obj/raycast.o:	src/raycast/raycast.cpp include/raycast/raycast.hpp include/raycast/raycast_conf.hpp
-	$(CC)		src/raycast/raycast.cpp				-c -o obj/raycast.o       $(FLAGS) $(CXXFLAGS)	
-
-obj/general.o:  src/general/general.cpp include/general/general.hpp include/general/general_conf.hpp 
-	$(CC)		src/general/general.cpp				-c -o obj/general.o 	  $(FLAGS) $(CXXFLAGS)
+#==========================================================

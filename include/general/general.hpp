@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#include "../logs/logs.h"
+#include "../logs/logs.hpp"
 #include "general_conf.hpp"
 
 //===================================================================

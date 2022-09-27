@@ -68,7 +68,7 @@ static Vector calc_components(const Light_src& light_src, const Sphere& sphere,
     double cos_alpha = l1 * v / (l1.len() * v.len()); 
     if (cos_alpha < 0) cos_alpha = 0;
     
-    Vector s_comp = pow(cos_alpha, Glare_power) * S_coeff * light_src.clr;
+    Vector s_comp = pow(cos_alpha, Specular_power) * S_coeff * light_src.clr;
     res += s_comp;
 
     return res;

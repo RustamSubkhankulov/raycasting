@@ -16,8 +16,7 @@ static Colour calc_components(const Light_src& light_src, const Sphere& sphere,
 
 //=========================================================
 
-Colour raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
-                                     Vector& cur_point, Vector& view_point)
+Colour raycast_point(const Scene& scene, const Point_info& point_info)
 {
     Colour res{};
 

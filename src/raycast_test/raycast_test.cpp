@@ -21,6 +21,10 @@ static const double Rot_angle_cos = cos(Rot_angle_rad);
 
 static void rotate_light(Light_src* light_src);
 
+static void setup_scene(Scene* scene);
+
+static Colour raycast_sphere_point
+
 //=========================================================
 
 #ifdef FILL_COLOR
@@ -72,10 +76,8 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
                            .colour     = Sphere_colour,
                            .rad_sqr    = Sphere_rad_sqr};
 
-    struct Light_src light_src = {.pos = Light_src_pos,
-                                  .clr = Light_src_clr};
-
-    Vector view_point = View_point;
+    Scene scene = {};
+    setup_scene(&scene);
 
     Grph::PixelsWindow window{Wndw_x_size, Wndw_y_size};
 
@@ -125,6 +127,24 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
     }
 
     return 0;
+}
+
+//---------------------------------------------------------
+
+static void setup_scene(Scene* scene)
+{
+    assert(scene);
+
+    *scene = {.light_src     = {.pos = Light_src_pos, .clr = Light_src_clr},
+
+              .view_point    = View_point,
+
+              .display_plane = {.a = Display_plane_a, 
+                                .b = Display_plane_b,
+                                .c = Display_plane_c,
+                                .d = Display_plane_d}};
+
+    return;
 }
 
 //---------------------------------------------------------

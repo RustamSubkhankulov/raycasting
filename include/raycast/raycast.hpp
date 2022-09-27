@@ -19,6 +19,26 @@ struct Light_src
 
 //---------------------------------------------------------
 
+struct Display_plane // a * x + b * y + c * z + d = 0
+{
+    double a = 0;
+    double b = 0;
+    double c = 0;
+    double d = 0;
+};
+
+//---------------------------------------------------------
+
+struct Scene
+{
+    Light_src     light_src    {};
+    Vector        view_point   {};
+    Display_plane display_plane{};
+};
+
+
+//---------------------------------------------------------
+
 struct Sphere
 {
     Vector center_pos{};
@@ -26,7 +46,15 @@ struct Sphere
     double rad_sqr = 0;
 };
 
+//---------------------------------------------------------
+
+struct Point_info
+{
+    Vector normal{};
+    Colour colour{};
+    Vector coords{};
+};
+
 //=========================================================
 
-Colour raycast_sphere_point(const Light_src& light_src, const Sphere& sphere, 
-                                     Vector& cur_point, Vector& view_point);
+Colour raycast_point(const Scene& scene, const Point_info& point_info);

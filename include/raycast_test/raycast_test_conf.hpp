@@ -24,7 +24,16 @@ static const double Rot_angle_rad = (1 * M_PI / 180);
 static const Vector Light_src_pos{3, 5, 3};
 static const Colour Light_src_clr{255, 255, 255};
 
-static const Vector View_point{0, 0, 4};
+static const Vector View_point{0, 0, 6};
+
+//---------------------------------------------------------
+
+// Display plane preferences
+
+static const double Display_plane_a =  0;
+static const double Display_plane_b =  0;
+static const double Display_plane_c =  1;
+static const double Display_plane_d = -3;
 
 //---------------------------------------------------------
 

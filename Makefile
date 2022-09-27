@@ -80,15 +80,16 @@ endif
 # OBJECT FILES LIST
 #==========================================================
 
-OBJ = $(OBJ_DIR)/main.o          \
-	  $(OBJ_DIR)/vector.o        \
-	  $(OBJ_DIR)/logs.o          \
-	  $(OBJ_DIR)/coordsys.o      \
-	  $(OBJ_DIR)/graphics.o	  	 \
-	  $(OBJ_DIR)/raycast_test.o  \
-	  $(OBJ_DIR)/raycast.o		 \
-	  $(OBJ_DIR)/general.o		 \
-	  $(OBJ_DIR)/colour.o		 
+OBJ = $(OBJ_DIR)/main.o          		\
+	  $(OBJ_DIR)/vector.o        		\
+	  $(OBJ_DIR)/logs.o          		\
+	  $(OBJ_DIR)/coordsys.o      		\
+	  $(OBJ_DIR)/graphics.o	  	 		\
+	  $(OBJ_DIR)/raycast_test.o  		\
+	  $(OBJ_DIR)/raycast.o		 		\
+	  $(OBJ_DIR)/general.o		 		\
+	  $(OBJ_DIR)/colour.o		 		\
+	  $(OBJ_DIR)/quadratic_equation.o
 
 #==========================================================
 # FUNCTIONS
@@ -110,60 +111,65 @@ raycast_test: $(OBJ)
 
 ##---------------------------------------------------------
 
-$(OBJ_DIR)/main.o:    		$(SRC_DIR)/main/main.cpp 								\
-							$(INC_DIR)/raycast_test/raycast_test.hpp
-	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+$(OBJ_DIR)/main.o:    				$(SRC_DIR)/main/main.cpp 								\
+									$(INC_DIR)/raycast_test/raycast_test.hpp
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/vector.o:		$(call MINIMAL_DEP,vector)
-	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+$(OBJ_DIR)/vector.o:				$(call MINIMAL_DEP,vector)
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/graphics.o: 		$(call MINIMAL_DEP,graphics)							\
-							$(INC_DIR)/vector/vector.hpp 							\
-							$(INC_DIR)/coordsys/coordsys.hpp
-	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+$(OBJ_DIR)/graphics.o: 				$(call MINIMAL_DEP,graphics)							\
+									$(INC_DIR)/vector/vector.hpp 							\
+									$(INC_DIR)/coordsys/coordsys.hpp
+	$(CXX)							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/logs.o:     		$(call MINIMAL_DEP,logs)								\
-							$(INC_DIR)/logs/errors.h 								\
-							codegen/err_descr.txt
-	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+$(OBJ_DIR)/logs.o:     				$(call MINIMAL_DEP,logs)								\
+									$(INC_DIR)/logs/errors.h 								\
+									codegen/err_descr.txt
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/coordsys.o: 		$(call MINIMAL_DEP,coordsys)
-	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+$(OBJ_DIR)/coordsys.o: 				$(call MINIMAL_DEP,coordsys)
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/raycast_test.o:  $(call MINIMAL_DEP,raycast_test)						\
-							$(INC_DIR)/graphics/graphics.hpp 				 		\
-							$(INC_DIR)/raycast_test/raycast_test_conf.hpp 	 		\
-							$(INC_DIR)/coordsys/coordsys.hpp 				 		\
-							$(INC_DIR)/vector/vector.hpp 	 				 		
-	$(CXX)				   	$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+$(OBJ_DIR)/raycast_test.o:  		$(call MINIMAL_DEP,raycast_test)						\
+									$(INC_DIR)/graphics/graphics.hpp 				 		\
+									$(INC_DIR)/raycast_test/raycast_test_conf.hpp 	 		\
+									$(INC_DIR)/coordsys/coordsys.hpp 				 		\
+									$(INC_DIR)/vector/vector.hpp 	 				 		
+	$(CXX)				   			$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/raycast.o:		$(call MINIMAL_DEP,raycast)								\
-							$(INC_DIR)/raycast/raycast_conf.hpp 					\
-							$(INC_DIR)/vector/vector.hpp
-	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)	
+$(OBJ_DIR)/raycast.o:				$(call MINIMAL_DEP,raycast)								\
+									$(INC_DIR)/raycast/raycast_conf.hpp 					\
+									$(INC_DIR)/vector/vector.hpp
+	$(CXX)							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)	
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/general.o:  		$(call MINIMAL_DEP,general)								\
-							$(INC_DIR)/general/general_conf.hpp 
-	$(CXX)					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
+$(OBJ_DIR)/general.o:  				$(call MINIMAL_DEP,general)								\
+									$(INC_DIR)/general/general_conf.hpp 
+	$(CXX)							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/colour.o: 		$(call MINIMAL_DEP,colour)
-	$(CXX) 					$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+$(OBJ_DIR)/colour.o: 				$(call MINIMAL_DEP,colour)
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
+
+#----------------------------------------------------------
+
+$(OBJ_DIR)/quadratic_equation.o: 	$(call MINIMAL_DEP,quadratic_equation)
+	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
 
 #==========================================================
 # .PHONY TARGETS

@@ -5,6 +5,7 @@
 
 #include "../../include/raycast_test/raycast_test.hpp"
 #include "../../include/raycast_test/raycast_test_conf.hpp"
+#include "../../include/quadratic_equation/quadratic_equation.hpp"
 
 //=========================================================
 
@@ -23,7 +24,11 @@ static void rotate_light(Light_src* light_src);
 
 static void setup_scene(Scene* scene);
 
-static Colour raycast_sphere_point
+static Colour raycast_sphere_point(const Scene& scene, const Vector& cur_point, 
+                                                       const Sphere& sphere);
+
+static bool get_straight_sphere_crossing(const Vector& vp, const Vector& straight, 
+                                                           const Sphere& sphere, Vector* cross_point);
 
 //=========================================================
 
@@ -105,7 +110,7 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
                 Vector cur_point_r{(double) cur_x_pos, (double) cur_y_pos};
                 Vector cur_point = coordsys.reverse_convert_coord(cur_point_r);
 
-                Colour cur_point_rgb = raycast_sphere_point(light_src, sphere, cur_point, view_point);
+                Colour cur_point_rgb = raycast_sphere_point(scene, cur_point, sphere);
 
                 bool is_set = window.set_pixel(cur_point_r, cur_point_rgb, Alpha_default);
                 {
@@ -123,10 +128,86 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
         
         window.display();
 
-        rotate_light(&light_src);
+        rotate_light(&scene.light_src);
     }
 
     return 0;
+}
+
+//---------------------------------------------------------
+
+static Colour raycast_sphere_point(const Scene& scene, const Vector& cur_point, 
+                                                       const Sphere& sphere)
+{
+    Vector straight{cur_point - scene.view_point};
+
+    Vector cross_point{};
+    bool is_cross = get_straight_sphere_crossing(scene.view_point, straight, sphere, &cross_point);
+    if (is_cross == false)
+        return Colour{};
+    
+    Vector normal = cross_point - sphere.center_pos;
+    normal.normalize();
+
+    Point_info point_info = {.normal = normal,
+                             .colour = sphere.colour,
+                             .coords = cross_point};
+
+    return raycast_point(scene, point_info);
+}   
+
+//---------------------------------------------------------
+
+static bool get_straight_sphere_crossing(const Vector& vp, const Vector& straight, 
+                                                           const Sphere& sphere, Vector* cross_point)
+{
+    assert(cross_point);
+
+    // x = v1 + k1 * t = b1 + k1 * t    vi - view_point
+    // y = v2 + k1 * t = b2 + k2 * t    ki - straight directional vector 
+    // z = v3 + k1 * t = b3 = k3 * t 
+
+    double b1 = vp.x();
+    double b2 = vp.y(); 
+    double b3 = vp.z();
+
+    double k1 = straight.x(); 
+    double k2 = straight.y(); 
+    double k3 = straight.x();
+
+    // (k1t + b1 - x0)^2 + (k2t + b2 - y0)^2 + (k3t + b3 - z0)^2 = R^2
+    // (k1t + w1)^2 + (k2t + w2)^2 + (k3t + w3)^2 = R^2
+
+    double w1 = b1 - sphere.center_pos.x();
+    double w2 = b2 - sphere.center_pos.y();
+    double w3 = b3 - sphere.center_pos.z();
+
+    // (k1^2 + k2^2 + k3^2)t^2 + 2 * (k1w1 + k2w2 + k3w3)t + (w1^2 + w2^2 + w3^2 - R^2) = 0
+
+    double a = k1 * k1 + k2 * k2 + k3 * k3;
+    double b = 2 * (k1 * w1 + k2 * w2 + k3 * w3);
+    double c = w1 * w1 + w2 * w2 + w3 * w3 - sphere.rad_sqr;
+
+    Equation equ = {.a = a, .b = b, .c = c};
+    solve_equation(&equ);
+
+    double t = 0;
+
+    if (equ.roots_ct = ONE_ROOT)
+    {
+        t = equ.root1;
+    }
+    else if (equ.roots_ct = TWO_ROOTS)
+    {
+        t = (equ.root1 > equ.root2)? equ.root2: equ.root1;
+    }
+    else 
+    {
+        return false;
+    }
+
+    *cross_point = vp + t * straight;
+    return true;
 }
 
 //---------------------------------------------------------

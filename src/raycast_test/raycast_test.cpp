@@ -77,9 +77,9 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
     coordsys.x_pos = Coordsys_x_pos;
     coordsys.y_pos = Coordsys_y_pos;
 
-    const Sphere sphere = {.center_pos = Sphere_center_pos,
-                           .colour     = Sphere_colour,
-                           .rad_sqr    = Sphere_rad_sqr};
+    Sphere sphere = {.center_pos = Sphere_center_pos,
+                     .colour     = Sphere_colour,
+                     .rad_sqr    = Sphere_rad_sqr};
 
     Scene scene = {};
     setup_scene(&scene);
@@ -131,6 +131,8 @@ int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) )
         window.display();
 
         rotate_light(&scene.light_src);
+
+        sphere.center_pos.set_z(sphere.center_pos.z() - 0.01);
     }
 
     return 0;
@@ -198,19 +200,23 @@ static bool get_straight_sphere_crossing(const Vector& vp, const Vector& straigh
     // double b = 2 * (k1 * w1 + k2 * w2 + k3 * w3);
     // double c = w1 * w1 + w2 * w2 + w3 * w3 - sphere.rad_sqr;
 
-    Vector straight_ = straight;
-    Vector vp_ = vp;
-    double a = straight_.len();
-    double b = 2 * (straight_ * vp);
-    double c = vp_.len() - sphere.rad_sqr;
+    Vector v = vp - sphere.center_pos;
+
+    double a = straight.len() * straight.len();
+    // fprintf(stderr, "len %lf\n", a);
+    double b = 2 * (straight * v);
+    double c = v.len() * v.len() - sphere.rad_sqr;
 
     Equation equ = {.a = a, .b = b, .c = c};
     solve_equation(&equ);
 
-    // fprintf(stderr, "%lf\n", b * b - 4 * a * c);
+    double d = 0;
+    // if ((d = b * b - 4 * a * c) > 0)
+    // fprintf(stderr, "%lf\n", d);
 
     double t = 0;
 
+    // fprintf(stderr, "%lf|%lf\n", equ.root1, equ.root2);
     if (equ.roots_ct == ONE_ROOT)
     {
         t = equ.root1;
@@ -221,7 +227,7 @@ static bool get_straight_sphere_crossing(const Vector& vp, const Vector& straigh
     }
     else 
     {
-        fprintf(stderr, "A\n");
+        // fprintf(stderr, "A\n");
         return false;
     }
 

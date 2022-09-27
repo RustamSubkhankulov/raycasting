@@ -13,7 +13,7 @@ class Vector_posed;
 class Vector
 {
     double x_ = 0, y_ = 0, z_ = 0;
-    double len_ = NAN;
+    mutable double len_ = NAN;
 
     public:
 
@@ -83,7 +83,7 @@ class Vector
         double y() const { return y_; }
         double z() const { return z_; }
 
-        double len()
+        double len() const 
             {
                 if (!isnan(len_))
                     return len_;

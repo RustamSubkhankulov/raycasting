@@ -119,7 +119,7 @@ void solve_quadratic(struct Equation* equation) {
 
     discr = b * b - 4 * a * c;
 
-    assert(isfinite(discr));
+    // assert(isfinite(discr));
 
     if (isequal(discr, 0)) {
 

@@ -13,27 +13,24 @@ static const unsigned char Alpha_default = 255;
 static const Vector Sphere_center_pos{0, 0, 0};
 static const Colour Sphere_colour    {304, 0, 210}; 
 
-static const double Sphere_rad_sqr = 4;
+static const double Sphere_rad_sqr      = 4;
+
+static const double Sphere_y_move_step  = 0.05;
+
+static const double Sphere_y_pos_offset = +1.5;
+static const double Sphere_y_neg_offset = -1.5;
 
 //---------------------------------------------------------
 
 // Light source preferences
 
-static const double Rot_angle_rad = (1 * M_PI / 180);
+static const double Rot_angle_rad = (3 * M_PI / 180);
 
 static const Vector Light_src_pos{3, 5, 3};
 static const Colour Light_src_clr{255, 255, 255};
 
-static const Vector View_point{0, 0, 6};
-
-//---------------------------------------------------------
-
-// Display plane preferences
-
-static const double Display_plane_a =  0;
-static const double Display_plane_b =  0;
-static const double Display_plane_c =  1;
-static const double Display_plane_d = -3;
+static const Vector View_point{0, 0, +6};
+static const Vector Plane_v   {0, 0, -4};
 
 //---------------------------------------------------------
 
@@ -54,7 +51,7 @@ static const unsigned Wndw_y_size = 800u;
 //---------------------------------------------------------
 
 // enables filling pixels array with particular value
-#define FILL_COLOR
+//#define FILL_COLOR
 
 #ifdef FILL_COLOR
 

@@ -19,21 +19,11 @@ struct Light_src
 
 //---------------------------------------------------------
 
-struct Display_plane // a * x + b * y + c * z + d = 0
-{
-    double a = 0;
-    double b = 0;
-    double c = 0;
-    double d = 0;
-};
-
-//---------------------------------------------------------
-
 struct Scene
 {
     Light_src     light_src    {};
     Vector        view_point   {};
-    // Display_plane display_plane{};
+    Vector        plane        {};
 };
 
 

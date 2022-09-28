@@ -73,30 +73,30 @@ Colour raycast_point(const Scene& scene, const Point_info& point_info)
 
 #ifdef FILL_COLOR
 
-static int pixels_array_fill(Grph::PixelsWindow *window)
-{
-    assert(window);
-
-    Vector size = window->get_size();
-
-    unsigned x_size = (unsigned)size.x();
-    unsigned y_size = (unsigned)size.y();
-
-    for (unsigned y_pos = 0; y_pos < y_size; y_pos++)
+    static int pixels_array_fill(Grph::PixelsWindow *window)
     {
-        for (unsigned x_pos = 0; x_pos < x_size; x_pos++)
+        assert(window);
+
+        Vector size = window->get_size();
+
+        unsigned x_size = (unsigned)size.x();
+        unsigned y_size = (unsigned)size.y();
+
+        for (unsigned y_pos = 0; y_pos < y_size; y_pos++)
         {
-            bool is_set = window->set_pixel(x_pos, y_pos, Fill_color_rgb, Fill_color_alpha);
-            if (is_set != true)
+            for (unsigned x_pos = 0; x_pos < x_size; x_pos++)
             {
-                error_report(PIXEL_ISNT_SET);
-                return PIXEL_ISNT_SET;
+                bool is_set = window->set_pixel(x_pos, y_pos, Fill_color_rgb, Fill_color_alpha);
+                if (is_set != true)
+                {
+                    error_report(PIXEL_ISNT_SET);
+                    return PIXEL_ISNT_SET;
+                }
             }
         }
-    }
 
-    return 0;
-}
+        return 0;
+    }
 
 #endif
 
@@ -125,13 +125,13 @@ int raycast_sphere_test_(FOR_LOGS(LOG_PARAMS))
 
     Grph::PixelsWindow window{Wndw_x_size, Wndw_y_size};
 
-#ifdef FILL_COLOR
+    #ifdef FILL_COLOR
 
-    int err = pixels_array_fill(&window);
-    if (err)
-        return err;
+        int err = pixels_array_fill(&window);
+        if (err)
+            return err;
 
-#endif
+    #endif
 
     while (window.is_open())
     {
@@ -189,8 +189,8 @@ static Colour raycast_sphere_point(const Scene &scene, const Vector &cur_point,
     if (is_cross == false)
         return Colour{};
 
-    if ((cross_point - scene.view_point).len() // check if the sphere is between view point and display
-        < (cur_point - scene.view_point).len())
+    if ((cross_point - scene.view_point).len()  // check if the sphere is between 
+        < (cur_point - scene.view_point).len()) // view point and display
         return Colour{};
 
     Vector normal = cross_point - sphere.center_pos;
@@ -248,9 +248,7 @@ static void setup_scene(Scene *scene)
     assert(scene);
 
     *scene = {.light_src  = {.pos = Light_src_pos, .clr = Light_src_clr},
-
               .view_point = View_point,
-
               .plane      = Plane_v};
 
     return;

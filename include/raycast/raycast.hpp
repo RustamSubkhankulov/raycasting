@@ -6,8 +6,8 @@
 
 #include "raycast_conf.hpp"
 #include "../logs/logs.hpp"
-#include "../vector/vector.hpp"
-#include "../colour/colour.hpp"
+#include "../graphics/graphics.hpp"
+#include "../coordsys/coordsys.hpp"
 
 //=========================================================
 
@@ -48,3 +48,11 @@ struct Point_info
 //=========================================================
 
 Colour raycast_point(const Scene& scene, const Point_info& point_info);
+
+int raycast_sphere_test_( FOR_LOGS(LOG_PARAMS) );
+
+//=========================================================
+
+#define raycast_sphere_test() \
+        raycast_sphere_test_( FOR_LOGS(LOG_ARGS))
+        

@@ -85,7 +85,6 @@ OBJ = $(OBJ_DIR)/main.o          		\
 	  $(OBJ_DIR)/logs.o          		\
 	  $(OBJ_DIR)/coordsys.o      		\
 	  $(OBJ_DIR)/graphics.o	  	 		\
-	  $(OBJ_DIR)/raycast_test.o  		\
 	  $(OBJ_DIR)/raycast.o		 		\
 	  $(OBJ_DIR)/general.o		 		\
 	  $(OBJ_DIR)/colour.o		 		\
@@ -112,7 +111,7 @@ raycast_test: $(OBJ)
 ##---------------------------------------------------------
 
 $(OBJ_DIR)/main.o:    				$(SRC_DIR)/main/main.cpp 								\
-									$(INC_DIR)/raycast_test/raycast_test.hpp
+									$(INC_DIR)/raycast/raycast.hpp
 	$(CXX) 							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS) 
 
 #----------------------------------------------------------
@@ -141,19 +140,12 @@ $(OBJ_DIR)/coordsys.o: 				$(call MINIMAL_DEP,coordsys)
 
 #----------------------------------------------------------
 
-$(OBJ_DIR)/raycast_test.o:  		$(call MINIMAL_DEP,raycast_test)						\
+$(OBJ_DIR)/raycast.o:		  		$(call MINIMAL_DEP,raycast)								\
 									$(INC_DIR)/graphics/graphics.hpp 				 		\
-									$(INC_DIR)/raycast_test/raycast_test_conf.hpp 	 		\
+									$(INC_DIR)/raycast/raycast_conf.hpp 	 				\
 									$(INC_DIR)/coordsys/coordsys.hpp 				 		\
 									$(INC_DIR)/vector/vector.hpp 	 				 		
 	$(CXX)				   			$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)
-
-#----------------------------------------------------------
-
-$(OBJ_DIR)/raycast.o:				$(call MINIMAL_DEP,raycast)								\
-									$(INC_DIR)/raycast/raycast_conf.hpp 					\
-									$(INC_DIR)/vector/vector.hpp
-	$(CXX)							$(<) -c -o $(@) $(DEBUG_FLAGS) $(CXXFLAGS)	
 
 #----------------------------------------------------------
 
